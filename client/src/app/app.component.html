@@ -5,14 +5,14 @@
   <div class="mainbox">
 
     <label class="i1">  Output-1: </label>
-    <span class="i2"></span>
-    <button class="i3">ON</button>
-    <button class="i4">OFF</button>
+    <span [ngStyle]="{'background-color': output1 === true ? 'chartreuse' : 'red'}" class="i2"></span>
+    <button class="i3" (click)="OnClick1()">ON</button>
+    <button class="i4" (click)="OffClick1()">OFF</button>
 
     <label class="i5">  Output-2: </label>
-    <span class="i6"></span>
-    <button class="i7">ON</button>
-    <button class="i8">OFF</button>
+    <span [ngStyle]="{'background-color': output2 === true ? 'chartreuse' : 'red'}" class="i6"></span>
+    <button class="i7" (click)="OnClick2()">ON</button>
+    <button class="i8" (click)="OffClick2()">OFF</button>
 
   </div>
 

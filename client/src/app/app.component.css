@@ -118,3 +118,14 @@
     background-color: red;
     margin: 3px;
 }
+
+.ison
+{
+    background-color: chartreuse;
+
+}
+
+.isoff
+{
+    background-color: red;
+}
