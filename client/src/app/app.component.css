@@ -9,7 +9,7 @@
 
 .header
 {
-    grid-column: 7/14;
+    grid-column: 6/14;
     grid-row: 3;
     color: aliceblue;
     font-size: xx-large;
@@ -18,16 +18,14 @@
 .mainbox
 {
     display: grid;
-    grid-column: 6/15 ;
-    grid-row: 5/12;
+    grid-column: 5/15 ;
+    grid-row: 4/12;
     background-color: rgb(35, 101, 155);
     border-style: double;
     border-color: chartreuse;
     border-radius: 25px;
-
-
     grid-template-columns: repeat(10,1fr);
-    grid-template-rows: repeat(5,1fr);
+    grid-template-rows: repeat(10,1fr);
     
 }
 
@@ -127,5 +125,5 @@
 
 .isoff
 {
-    background-color: red;
+    background-color:orangered;
 }
