@@ -27,6 +27,7 @@ export class OutputsService {
   }
 
   updateOutput(output: Output): Observable<Output>{
+    console.log('**************1');
     const body = JSON.stringify(output);
     var prams = body;
     console.log(prams);
@@ -37,6 +38,8 @@ export class OutputsService {
         })};
 
         return this.http.post<Output>('http://localhost:3000/api/outputs',prams,httpOptions);
+
+        
         //       .map(this.extractData)
         //       .catch(this.handleErrorObservable);
 
@@ -55,6 +58,24 @@ export class OutputsService {
     // .catch(this.handleErrorObservable);
 
   }
+
+
+
+  updateOutput2(output: Output){
+    console.log('**************1');
+    const body = JSON.stringify(output);
+    var prams = body;
+    console.log(prams);
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          
+        })};
+
+        this.http.post<Output>('http://localhost:3000/api/outputs',prams,httpOptions);
+      }
+
+
 
 //    getOutput():Observable<Output[]> {
 //        // return this.http.get('http://localhost:3000/api/outputs')

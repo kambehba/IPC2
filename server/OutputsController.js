@@ -48,14 +48,17 @@ module.exports = function(app){
      app.post('/api/outputs/',function(req,res)
      {
           //UPDATE
-
-          console.log(req.body.id);
-         if(req.body.id || req.body.id==0)
+        
+         if(req.body.Id || req.body.Id==0)
          {
-            console.log('********');
-            console.log(req.body.id);
-             var ref = firebase.database().ref('/internet-control/outputs/' + req.body.id);
-             ref.update({status:req.body.status});
+            console.log(req.body.Id);
+             var ref = firebase.database().ref('/internet-control/outputs/' + req.body.Id);
+            //  console.log('req.body.name:' + req.body.name);
+             ref.update({status:req.body.status}).then(result=>{
+                 //res.status(201).json({postId: result}); 
+             });
+
+            
          }//End of UPDATE
  
          //CREATE
