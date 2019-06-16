@@ -62,10 +62,10 @@ export class OutputsService {
   }
 
   updateOutput(output: Output): Observable<Output>{
-    console.log('**************1');
+   
     const body = JSON.stringify(output);
     var prams = body;
-    console.log(prams);
+   
     const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -101,7 +101,7 @@ export class OutputsService {
    
     const body = JSON.stringify(output);
     var prams = body;
-    console.log(prams);
+  
     const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
