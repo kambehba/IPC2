@@ -48,25 +48,14 @@ void loop() {
   if ((WiFiMulti.run() == WL_CONNECTED)) {
 
     std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
-
-    //client->setFingerprint(fingerprint);
-    //Firebase.setFloat("number", 42.0);
-
-   
-   
   }
 
   Serial.println("Wait 10s before next round...");
-  //delay(10000);
-   Serial.println(Firebase.getFloat("number"));
-   if(Firebase.getFloat("number") == 55)
-   {
-    Firebase.setString("number","hello");
-    Serial.println("******");
-       digitalWrite(LED_BUILTIN, LOW);  
-       delay(1000);                      // Wait for a second
-        digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH
-        delay(2000);      
-   }
+  
+   Serial.println(Firebase.getFloat("/internet-control/outputs/1/status"));
+   if(Firebase.getString("/internet-control/outputs/1/status") == "ON") { digitalWrite(LED_BUILTIN, LOW);  }
+   if(Firebase.getString("/internet-control/outputs/1/status") == "OFF") { digitalWrite(LED_BUILTIN, HIGH);  }
+  
+}
    
-   }
+   

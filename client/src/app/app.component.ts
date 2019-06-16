@@ -24,13 +24,12 @@ export class AppComponent {
 
   ngOnInit(){
      this.outputsService.output1Status.subscribe(ss=>{
-      alert("ss ==" + ss);
+     
       if(ss == 'ON') this.output1 = true;
       else this.output1 = false;
       
      });
-    // alert("ssfes");
-    // this.outputsService.output1Status.subscribe(this.dothis);
+   
   }
       
       dothis(ss:string)
@@ -38,7 +37,7 @@ export class AppComponent {
         alert("ss ==" + ss);
         if(ss == 'ON') this.output1 = true;
         else this.output1 = false;
-      //  this.output1Status = ss;
+    
       }
 
   OnClick1()
@@ -59,9 +58,7 @@ export class AppComponent {
     this.output.Id = 1;
     this.output.status = "OFF";
     this.outputsService.updateOutput2(this.output);
-    // this.outputsService.updateOutput(this.output).subscribe(
-    // error=>alert(error),
-    // () => this.output1 = false); 
+    
   }
 
   OnClick2()
