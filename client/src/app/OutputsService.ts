@@ -14,6 +14,9 @@ export class OutputsService {
 
     outputs : Observable<Output[]>;
 
+    LOCAL_URL : string;
+    DEPLOYED_URL : string;
+
     public output1Status : Subject<string>;
    // output1Status = new Subject<string>();
 
@@ -25,10 +28,14 @@ export class OutputsService {
     this.output1Status = new Subject<string>();
     //this.output = new Output('','OFF')  
 
+    this.LOCAL_URL = 'http://localhost:3000';
+    this.DEPLOYED_URL = 'https://ipc2-server.herokuapp.com';
+
   }
 
   getOutputs(){
-      this.outputs = this.http.get<Output[]>('http://localhost:3000/api/outputs');
+      //this.outputs = this.http.get<Output[]>('http://localhost:3000/api/outputs');
+      this.outputs = this.http.get<Output[]>( this.DEPLOYED_URL + '/api/outputs');
   }
 
   getOutPut(output: Output)
@@ -43,9 +50,14 @@ export class OutputsService {
         
       })};
       
-    this.http.get<Output>('http://localhost:3000/api/output/'+ output.Id).subscribe(data=>{
+    // this.http.get<Output>('http://localhost:3000/api/output/'+ output.Id).subscribe(data=>{
+    //   this.output1Status.next(data.status);
+    //   console.log('mmmmm'+data.status);
+    // });
+
+    this.http.get<Output>(this.DEPLOYED_URL +'/api/output/'+ output.Id).subscribe(data=>{
       this.output1Status.next(data.status);
-      console.log('mmmmm'+data.status);
+     
     });
   }
 
@@ -60,7 +72,8 @@ export class OutputsService {
           
         })};
 
-        return this.http.post<Output>('http://localhost:3000/api/outputs',prams,httpOptions);
+        //return this.http.post<Output>('http://localhost:3000/api/outputs',prams,httpOptions);
+        return this.http.post<Output>(this.DEPLOYED_URL +'/api/outputs',prams,httpOptions);
 
         
         //       .map(this.extractData)
@@ -85,7 +98,7 @@ export class OutputsService {
 
 
   updateOutput2(output: Output){
-    console.log('**************1');
+   
     const body = JSON.stringify(output);
     var prams = body;
     console.log(prams);
@@ -94,14 +107,17 @@ export class OutputsService {
           'Content-Type':  'application/json',
           
         })};
-        console.log('/////////1');
-        this.http.post<Output>('http://localhost:3000/api/outputs',prams,httpOptions).subscribe(response=>{
-          //this.output1Status.next(response.status);
-          console.log('8888888888888'+response.status);
+       
+        // this.http.post<Output>('http://localhost:3000/api/outputs',prams,httpOptions).subscribe(response=>{
+        //   this.getOutPut(output);
+
+        // });
+
+        this.http.post<Output>(this.DEPLOYED_URL +'/api/outputs',prams,httpOptions).subscribe(response=>{
           this.getOutPut(output);
 
         });
-        console.log('/////////2');
+      
       }
 
 
