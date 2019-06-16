@@ -10,7 +10,19 @@ module.exports = function(app){
     app.use(bodyParser.urlencoded({extended:true}));
     var lastId = undefined;
 
+  
 
+    
+
+    app.get("/api/output/:id",(req,res)=>{
+        
+        var outputRef = firebase.database().ref('/internet-control/outputs/'+req.params.id);
+
+        outputRef.once('value',function(data){
+            res.send(data.val());
+        });
+       
+    });
    
 
 
@@ -21,29 +33,10 @@ module.exports = function(app){
         firebase.database().ref('/internet-control/outputs').once('value').then(function(snapshot) {
             outputs = snapshot.val();});
             res.send(outputs); 
-
-
-            // firebase.database.list('/internet-control/outputs').subscribe(x=>{
-            //     var j = x;
-            //     console.log(j);
-            //     res.send(j); 
-
-            // })
               
     });
 
-    app.get('/api/outputs2/',function(req,res)
-    {
-         console.log("*rrrrfffffffffrrrrrr");
-        // var database = firebase.database();
-       
-        // firebase.database().ref('/internet-control/outputs').once('value').then(function(snapshot) {
-        // outputs = snapshot.val();});
-        // res.send(outputs);
-        
-    });
-
-
+    
      //http POST & UPDATE
      app.post('/api/outputs/',function(req,res)
      {
@@ -55,7 +48,8 @@ module.exports = function(app){
              var ref = firebase.database().ref('/internet-control/outputs/' + req.body.Id);
             //  console.log('req.body.name:' + req.body.name);
              ref.update({status:req.body.status}).then(result=>{
-                 //res.status(201).json({postId: result}); 
+                 console.log(result);
+                 res.status(201).json({result}); 
              });
 
             

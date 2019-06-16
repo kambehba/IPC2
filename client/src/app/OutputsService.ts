@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import {Output} from './Output';
 import {Observable} from "rxjs/observable";
+import {Subject} from 'rxjs';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
@@ -13,17 +14,39 @@ export class OutputsService {
 
     outputs : Observable<Output[]>;
 
+    public output1Status : Subject<string>;
+   // output1Status = new Subject<string>();
+
  //private outputs:Output[]; 
   //private output:Output;
   private qq =[];
   constructor(private http: HttpClient) 
   { 
+    this.output1Status = new Subject<string>();
     //this.output = new Output('','OFF')  
 
   }
 
   getOutputs(){
       this.outputs = this.http.get<Output[]>('http://localhost:3000/api/outputs');
+  }
+
+  getOutPut(output: Output)
+  {
+    
+    const body = JSON.stringify(output);
+    var prams = body;
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        
+      })};
+      
+    this.http.get<Output>('http://localhost:3000/api/output/'+ output.Id).subscribe(data=>{
+      this.output1Status.next(data.status);
+      console.log('mmmmm'+data.status);
+    });
   }
 
   updateOutput(output: Output): Observable<Output>{
@@ -71,8 +94,14 @@ export class OutputsService {
           'Content-Type':  'application/json',
           
         })};
+        console.log('/////////1');
+        this.http.post<Output>('http://localhost:3000/api/outputs',prams,httpOptions).subscribe(response=>{
+          //this.output1Status.next(response.status);
+          console.log('8888888888888'+response.status);
+          this.getOutPut(output);
 
-        this.http.post<Output>('http://localhost:3000/api/outputs',prams,httpOptions);
+        });
+        console.log('/////////2');
       }
 
 
