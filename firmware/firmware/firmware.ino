@@ -21,15 +21,17 @@ ESP8266WiFiMulti WiFiMulti;
 #define FIREBASE_HOST "dazzling-torch-8270.firebaseio.com"
 #define FIREBASE_AUTH "II3bycCtijU0NplKxY7HoJ1e8YLtIY92PRYHdBRu"
 
+#define OUTPUT1 D1
+#define OUTPUT2 D2
+
 void setup() {
 
   Serial.begin(115200);
   // Serial.setDebugOutput(true);
 
-  Serial.println();
-  Serial.println();
-  Serial.println();
-
+  pinMode(OUTPUT1, OUTPUT);
+  pinMode(OUTPUT2, OUTPUT);
+  
   for (uint8_t t = 4; t > 0; t--) {
     Serial.printf("[SETUP] WAIT %d...\n", t);
     Serial.flush();
@@ -53,8 +55,14 @@ void loop() {
   Serial.println("Wait 10s before next round...");
   
    Serial.println(Firebase.getFloat("/internet-control/outputs/1/status"));
-   if(Firebase.getString("/internet-control/outputs/1/status") == "ON") { digitalWrite(LED_BUILTIN, LOW);  }
-   if(Firebase.getString("/internet-control/outputs/1/status") == "OFF") { digitalWrite(LED_BUILTIN, HIGH);  }
+//   if(Firebase.getString("/internet-control/outputs/1/status") == "ON") { digitalWrite(LED_BUILTIN, LOW);  }
+//   if(Firebase.getString("/internet-control/outputs/1/status") == "OFF") { digitalWrite(LED_BUILTIN, HIGH);  }
+
+     if(Firebase.getString("/internet-control/outputs/1/status") == "ON") { digitalWrite(OUTPUT1, LOW);  }
+     if(Firebase.getString("/internet-control/outputs/1/status") == "OFF") { digitalWrite(OUTPUT1, HIGH);  }
+
+      if(Firebase.getString("/internet-control/outputs/2/status") == "ON") { digitalWrite(OUTPUT2, LOW);  }
+     if(Firebase.getString("/internet-control/outputs/2/status") == "OFF") { digitalWrite(OUTPUT2, HIGH);  }
   
 }
    
